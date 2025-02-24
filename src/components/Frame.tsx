@@ -41,12 +41,37 @@ function ExampleCard() {
 export default function Frame() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
-  // Handle search input changes
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    console.log("Search query:", e.target.value); // Verify state updates
-  };
+  // Handle search input changes with debounce
+  const handleSearchChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    
+    if (query.length < 2) {
+      setSearchResults([]);
+      return;
+    }
+
+    setIsSearching(true);
+    setSearchError(null);
+    
+    try {
+      // TODO: Replace with actual Neynar API call
+      const mockResults = [
+        { username: "demo1", displayName: "Demo User 1" },
+        { username: "demo2", displayName: "Demo User 2" }
+      ];
+      setSearchResults(mockResults);
+    } catch (error) {
+      setSearchError("Failed to search users");
+      console.error(error);
+    } finally {
+      setIsSearching(false);
+    }
+  }, []);
   const [context, setContext] = useState<Context.FrameContext>();
 
   const [added, setAdded] = useState(false);
@@ -155,14 +180,48 @@ export default function Frame() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              placeholder="Search users..."
-              className="w-full px-3 py-2 border rounded-md border-gray-300 dark:border-gray-700 
-                       focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800"
-            />
+            <div className="space-y-4">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                placeholder="Search users..."
+                className="w-full px-3 py-2 border rounded-md border-gray-300 dark:border-gray-700 
+                         focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800"
+              />
+              
+              {isSearching && (
+                <div className="text-center text-sm text-gray-500">
+                  Searching...
+                </div>
+              )}
+
+              {searchError && (
+                <div className="text-center text-sm text-red-500">
+                  {searchError}
+                </div>
+              )}
+
+              {!isSearching && searchResults.length > 0 && (
+                <div className="space-y-2">
+                  {searchResults.map((user, index) => (
+                    <div 
+                      key={index}
+                      className="p-2 border rounded-md hover:bg-gray-50 dark:hover:bg-gray-800"
+                    >
+                      <div className="font-medium">{user.displayName}</div>
+                      <div className="text-sm text-gray-500">@{user.username}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {!isSearching && searchQuery.length >= 2 && searchResults.length === 0 && (
+                <div className="text-center text-sm text-gray-500">
+                  No users found
+                </div>
+              )}
+            </div>
           </CardContent>
         </Card>
         <ExampleCard />
