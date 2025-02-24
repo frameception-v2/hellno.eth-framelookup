@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, ChangeEvent } from "react";
 import sdk, {
   AddFrame,
   SignIn as SignInCore,
@@ -40,6 +40,13 @@ function ExampleCard() {
 
 export default function Frame() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Handle search input changes
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    console.log("Search query:", e.target.value); // Verify state updates
+  };
   const [context, setContext] = useState<Context.FrameContext>();
 
   const [added, setAdded] = useState(false);
@@ -140,6 +147,24 @@ export default function Frame() {
         <h1 className="text-2xl font-bold text-center mb-4 text-gray-700 dark:text-gray-300">
           {PROJECT_TITLE}
         </h1>
+        <Card className="mb-4">
+          <CardHeader>
+            <CardTitle>User Search</CardTitle>
+            <CardDescription>
+              Search for Farcaster users
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              placeholder="Search users..."
+              className="w-full px-3 py-2 border rounded-md border-gray-300 dark:border-gray-700 
+                       focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800"
+            />
+          </CardContent>
+        </Card>
         <ExampleCard />
       </div>
     </div>
