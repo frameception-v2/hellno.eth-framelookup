@@ -22,6 +22,7 @@ import {
 } from "~/components/ui/sidebar";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'),
   title: PROJECT_TITLE,
   description: PROJECT_DESCRIPTION,
 };
