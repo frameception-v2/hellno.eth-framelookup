@@ -22,21 +22,6 @@ import { createStore } from "mipd";
 import { Label } from "~/components/ui/label";
 import { PROJECT_TITLE } from "~/lib/constants";
 
-function ExampleCard() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Welcome to Maschine Search</CardTitle>
-        <CardDescription>
-          Search and discover Farcaster users
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Label>Place content in a Card here.</Label>
-      </CardContent>
-    </Card>
-  );
-}
 
 export default function Frame() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
@@ -237,7 +222,6 @@ export default function Frame() {
             </div>
           </CardContent>
         </Card>
-        <ExampleCard />
       </div>
     </div>
   );
