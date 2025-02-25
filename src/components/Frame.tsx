@@ -46,32 +46,36 @@ export default function Frame() {
   const [searchError, setSearchError] = useState<string | null>(null);
 
   // Handle search input changes with debounce
-  const handleSearchChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    
-    if (query.length < 2) {
-      setSearchResults([]);
-      return;
-    }
+  const handleSearchChange = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      const query = e.target.value;
+      setSearchQuery(query);
+      
+      if (query.length < 2) {
+        setSearchResults([]);
+        return;
+      }
 
-    setIsSearching(true);
-    setSearchError(null);
-    
-    try {
-      // TODO: Replace with actual Neynar API call
-      const mockResults = [
-        { username: "demo1", displayName: "Demo User 1" },
-        { username: "demo2", displayName: "Demo User 2" }
-      ];
-      setSearchResults(mockResults);
-    } catch (error) {
-      setSearchError("Failed to search users");
-      console.error(error);
-    } finally {
-      setIsSearching(false);
-    }
-  }, []);
+      setIsSearching(true);
+      setSearchError(null);
+      
+      try {
+        const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        if (!response.ok) {
+          throw new Error('Search request failed');
+        }
+        
+        const data = await response.json();
+        setSearchResults(data.result.users);
+      } catch (error) {
+        setSearchError("Failed to search users");
+        console.error(error);
+      } finally {
+        setIsSearching(false);
+      }
+    },
+    []
+  );
   const [context, setContext] = useState<Context.FrameContext>();
 
   const [added, setAdded] = useState(false);
@@ -206,11 +210,20 @@ export default function Frame() {
                 <div className="space-y-2">
                   {searchResults.map((user, index) => (
                     <div 
-                      key={index}
-                      className="p-2 border rounded-md hover:bg-gray-50 dark:hover:bg-gray-800"
+                      key={user.fid}
+                      className="p-2 border rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2"
                     >
-                      <div className="font-medium">{user.displayName}</div>
-                      <div className="text-sm text-gray-500">@{user.username}</div>
+                      {user.pfp_url && (
+                        <img 
+                          src={user.pfp_url} 
+                          alt={user.display_name || user.username}
+                          className="w-8 h-8 rounded-full"
+                        />
+                      )}
+                      <div>
+                        <div className="font-medium">{user.display_name || user.username}</div>
+                        <div className="text-sm text-gray-500">@{user.username}</div>
+                      </div>
                     </div>
                   ))}
                 </div>
