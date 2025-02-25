@@ -196,7 +196,8 @@ export default function Frame() {
                   {searchResults.map((user, index) => (
                     <div 
                       key={user.fid}
-                      className="p-2 border rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2"
+                      className="p-2 border rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2 cursor-pointer"
+                      onClick={() => sdk.actions.viewProfile({ fid: parseInt(user.fid) })}
                     >
                       {user.pfp_url && (
                         <img 
