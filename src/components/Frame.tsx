@@ -26,9 +26,9 @@ function ExampleCard() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Welcome to the Frame Template</CardTitle>
+        <CardTitle>Welcome to Maschine Search</CardTitle>
         <CardDescription>
-          This is an example card that you can customize or remove
+          Search and discover Farcaster users
         </CardDescription>
       </CardHeader>
       <CardContent>
