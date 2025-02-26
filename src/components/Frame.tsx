@@ -21,6 +21,7 @@ import { useSession } from "next-auth/react";
 import { createStore } from "mipd";
 import { Label } from "~/components/ui/label";
 import { PROJECT_TITLE } from "~/lib/constants";
+import { formatNumber } from "~/lib/formatNumber";
 
 
 export default function Frame() {
@@ -212,8 +213,8 @@ export default function Frame() {
                         </div>
                         <div className="text-sm text-purple-600 dark:text-purple-400">@{user.username}</div>
                         <div className="flex gap-4 mt-1 text-xs text-gray-500 dark:text-gray-400">
-                          <span>{user.follower_count.toLocaleString()} followers</span>
-                          <span>{user.following_count.toLocaleString()} following</span>
+                          <span>{formatNumber(user.follower_count)} followers</span>
+                          <span>{formatNumber(user.following_count)} following</span>
                         </div>
                       </div>
                     </div>
