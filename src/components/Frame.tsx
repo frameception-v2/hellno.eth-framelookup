@@ -157,16 +157,16 @@ export default function Frame() {
         paddingRight: context?.client.safeAreaInsets?.right ?? 0,
       }}
     >
-      <div className="w-full max-w-[600px] mx-auto p-2 sm:p-4">
-        <Card className="mb-4 border-2 border-purple-500 dark:border-purple-400 shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white dark:from-purple-600 dark:to-pink-600">
-            <CardTitle className="text-2xl font-bold tracking-tight">User Search</CardTitle>
-            <CardDescription className="text-white/90">
+      <div className="w-full max-w-[600px] mx-auto p-4 sm:p-6">
+        <Card className="mb-6 border-2 border-purple-500 dark:border-purple-400 shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white dark:from-purple-600 dark:to-pink-600 p-6">
+            <CardTitle className="text-2xl font-bold tracking-tight mb-2">User Search</CardTitle>
+            <CardDescription className="text-white/90 text-lg">
               Search for Farcaster users
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
+          <CardContent className="p-6">
+            <div className="space-y-6">
               <input
                 type="text"
                 value={searchQuery}
@@ -178,7 +178,7 @@ export default function Frame() {
               />
               
               {isSearching && (
-                <div className="text-center text-sm text-gray-500">
+                <div className="text-center text-base text-gray-500 py-2">
                   Searching...
                 </div>
               )}
@@ -190,13 +190,13 @@ export default function Frame() {
               )}
 
               {!isSearching && searchResults.length > 0 && (
-                <div className="space-y-2">
+                <div className="space-y-4">
                   {searchResults.map((user, index) => (
                     <div 
                       key={user.fid}
-                      className="p-3 border-2 border-purple-200 dark:border-purple-800 rounded-lg 
+                      className="p-4 border-2 border-purple-200 dark:border-purple-800 rounded-lg 
                                hover:bg-purple-50 dark:hover:bg-purple-900/30 
-                               flex items-center gap-3 cursor-pointer transition-colors"
+                               flex items-center gap-4 cursor-pointer transition-colors"
                       onClick={() => sdk.actions.viewProfile({ fid: parseInt(user.fid) })}
                     >
                       {user.pfp_url && (
@@ -218,7 +218,7 @@ export default function Frame() {
               )}
 
               {!isSearching && searchQuery.length >= 2 && searchResults.length === 0 && (
-                <div className="text-center text-sm text-gray-500">
+                <div className="text-center text-base text-gray-500 py-4">
                   No users found
                 </div>
               )}
