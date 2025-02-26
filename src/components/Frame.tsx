@@ -157,11 +157,11 @@ export default function Frame() {
         paddingRight: context?.client.safeAreaInsets?.right ?? 0,
       }}
     >
-      <div className="w-[300px] mx-auto py-2 px-2">
-        <Card className="mb-4">
-          <CardHeader>
-            <CardTitle>User Search</CardTitle>
-            <CardDescription>
+      <div className="w-full max-w-[600px] mx-auto p-2 sm:p-4">
+        <Card className="mb-4 border-2 border-purple-500 dark:border-purple-400 shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white dark:from-purple-600 dark:to-pink-600">
+            <CardTitle className="text-2xl font-bold tracking-tight">User Search</CardTitle>
+            <CardDescription className="text-white/90">
               Search for Farcaster users
             </CardDescription>
           </CardHeader>
@@ -172,8 +172,9 @@ export default function Frame() {
                 value={searchQuery}
                 onChange={handleSearchChange}
                 placeholder="Search users..."
-                className="w-full px-3 py-2 border rounded-md border-gray-300 dark:border-gray-700 
-                         focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800"
+                className="w-full px-4 py-3 border-2 rounded-lg border-purple-300 dark:border-purple-700
+                         focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800
+                         text-lg placeholder:text-gray-400"
               />
               
               {isSearching && (
@@ -193,19 +194,23 @@ export default function Frame() {
                   {searchResults.map((user, index) => (
                     <div 
                       key={user.fid}
-                      className="p-2 border rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2 cursor-pointer"
+                      className="p-3 border-2 border-purple-200 dark:border-purple-800 rounded-lg 
+                               hover:bg-purple-50 dark:hover:bg-purple-900/30 
+                               flex items-center gap-3 cursor-pointer transition-colors"
                       onClick={() => sdk.actions.viewProfile({ fid: parseInt(user.fid) })}
                     >
                       {user.pfp_url && (
                         <img 
                           src={user.pfp_url} 
                           alt={user.display_name || user.username}
-                          className="w-8 h-8 rounded-full"
+                          className="w-12 h-12 rounded-full border-2 border-purple-300 dark:border-purple-600"
                         />
                       )}
                       <div>
-                        <div className="font-medium">{user.display_name || user.username}</div>
-                        <div className="text-sm text-gray-500">@{user.username}</div>
+                        <div className="font-bold text-lg text-purple-900 dark:text-purple-100">
+                          {user.display_name || user.username}
+                        </div>
+                        <div className="text-sm text-purple-600 dark:text-purple-400">@{user.username}</div>
                       </div>
                     </div>
                   ))}
