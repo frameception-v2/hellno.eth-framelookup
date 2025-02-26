@@ -161,8 +161,8 @@ export default function Frame() {
       <div className="w-full max-w-[600px] mx-auto p-4 sm:p-6">
         <Card className="mb-6 border-2 border-purple-500 dark:border-purple-400 shadow-lg">
           <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white dark:from-purple-600 dark:to-pink-600 p-6">
-            <CardTitle className="text-2xl font-bold tracking-tight mb-2">User Search</CardTitle>
-            <CardDescription className="text-white/90 text-lg">
+            <CardTitle className="text-2xl font-bold tracking-tight mb-2 text-white">User Search</CardTitle>
+            <CardDescription className="text-white text-lg font-medium">
               Search for Farcaster users
             </CardDescription>
           </CardHeader>
