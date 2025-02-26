@@ -1,0 +1,49 @@
+@keyframes wobble {
+  0% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+  100% { transform: rotate(-2deg); }
+}
+
+@keyframes rainbow-text {
+  0% { color: #ff0000; }
+  20% { color: #ff00ff; }
+  40% { color: #0000ff; }
+  60% { color: #00ff00; }
+  80% { color: #ffff00; }
+  100% { color: #ff0000; }
+}
+
+@keyframes sparkle {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.myspace-background {
+  background: linear-gradient(45deg, #000033, #330033);
+  background-size: 200% 200%;
+  animation: sparkle 10s linear infinite;
+}
+
+.myspace-card {
+  animation: wobble 3s ease-in-out infinite;
+  border: 3px solid #ff00ff !important;
+  background: linear-gradient(45deg, #000033, #330033) !important;
+  box-shadow: 0 0 15px #ff00ff, inset 0 0 10px #ff00ff;
+}
+
+.myspace-title {
+  animation: rainbow-text 3s linear infinite;
+  font-family: "Comic Sans MS", cursive !important;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.myspace-header {
+  background: linear-gradient(90deg, #330066, #660066) !important;
+  border-bottom: 2px solid #ff00ff;
+  box-shadow: 0 0 15px #ff00ff;
+}
+
+.myspace-text {
+  color: #00ffff !important;
+  text-shadow: 1px 1px 2px #000000;
+}

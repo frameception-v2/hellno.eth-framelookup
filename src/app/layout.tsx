@@ -5,6 +5,7 @@ import { ThemeProviderClient } from "~/components/providers/theme-provider-clien
 import { ThemeToggle } from "~/components/ui/theme-toggle";
 import { PROJECT_TITLE, PROJECT_DESCRIPTION } from "~/lib/constants";
 import "~/app/globals.css";
+import "~/styles/myspace.css";
 import { Providers } from "~/app/providers";
 import { AppSidebar } from "~/components/app-sidebar";
 import { NavActions } from "~/components/nav-actions";
@@ -35,13 +36,13 @@ export default async function RootLayout({
   const session = await getSession();
   return (
     <html lang="en">
-      <body>
+      <body className="myspace-background">
         <ThemeProviderClient>
           <Providers session={session}>
           <SidebarProvider>
             {/* <AppSidebar /> */}
             <SidebarInset>
-              <header className="flex h-14 shrink-0 items-center gap-2">
+              <header className="flex h-14 shrink-0 items-center gap-2 myspace-header">
                 <div className="flex flex-1 items-center gap-2 px-3">
                   {/* 
                     <SidebarTrigger />
@@ -51,7 +52,7 @@ export default async function RootLayout({
                     <BreadcrumbList>
                       <BreadcrumbItem>
                         <BreadcrumbPage className="ml-2 line-clamp-1">
-                          {PROJECT_TITLE}
+                          <span className="myspace-title">★ {PROJECT_TITLE} ★</span>
                         </BreadcrumbPage>
                       </BreadcrumbItem>
                     </BreadcrumbList>
