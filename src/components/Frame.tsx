@@ -206,11 +206,15 @@ export default function Frame() {
                           className="w-12 h-12 rounded-full border-2 border-purple-300 dark:border-purple-600"
                         />
                       )}
-                      <div>
+                      <div className="flex-1">
                         <div className="font-bold text-lg text-purple-900 dark:text-purple-100">
                           {user.display_name || user.username}
                         </div>
                         <div className="text-sm text-purple-600 dark:text-purple-400">@{user.username}</div>
+                        <div className="flex gap-4 mt-1 text-xs text-gray-500 dark:text-gray-400">
+                          <span>{user.follower_count.toLocaleString()} followers</span>
+                          <span>{user.following_count.toLocaleString()} following</span>
+                        </div>
                       </div>
                     </div>
                   ))}
